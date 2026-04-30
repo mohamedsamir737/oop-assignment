@@ -1,0 +1,65 @@
+using System;
+
+abstract class User
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+
+    public User(string n, string e)
+    {
+        Name = n;
+        Email = e;
+    }
+
+    public void Login()
+    {
+        Console.WriteLine($"{Name} logged in");
+    }
+
+    public void Logout()
+    {
+        Console.WriteLine($"{Name} logged out");
+    }
+}
+
+class Course
+{
+    public string Title { get; set; }
+    private List<Student> students = new List<Student>();
+
+    public Course(string title)
+    {
+        Title = title;
+    }
+
+    public void Enroll(Student s)
+    {
+        students.Add(s);
+    }
+
+    public void ShowStudents()
+    {
+        foreach (var s in students)
+            Console.WriteLine(s.Name);
+    }
+}
+
+class Instructor : User
+{
+    public Instructor(string n, string e) : base(n, e) { }
+
+    public Course CreateCourse(string title)
+    {
+        return new Course(title);
+    }
+}
+
+class Student : User
+{
+    public Student(string n, string e) : base(n, e) { }
+
+    public void EnrollInCourse(Course c)
+    {
+        c.Enroll(this);
+    }
+}
