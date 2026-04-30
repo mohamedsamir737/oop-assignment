@@ -1,0 +1,45 @@
+using System;
+
+class Vehicle
+{
+    public string Brand { get; set; }
+    public string Model { get; set; }
+    public double PricePerDay { get; set; }
+
+    public Vehicle(string b, string m, double p)
+    {
+        Brand = b;
+        Model = m;
+        PricePerDay = p;
+    }
+
+    public virtual double CalculateRentalCost(int days)
+    {
+        return PricePerDay * days;
+    }
+}
+
+class Car : Vehicle
+{
+    public Car(string b, string m, double p) : base(b, m, p) { }
+
+    public override double CalculateRentalCost(int days)
+    {
+        return base.CalculateRentalCost(days) * 0.9;
+    }
+}
+
+class Bike : Vehicle
+{
+    public Bike(string b, string m, double p) : base(b, m, p) { }
+}
+
+class Truck : Vehicle
+{
+    public Truck(string b, string m, double p) : base(b, m, p) { }
+
+    public override double CalculateRentalCost(int days)
+    {
+        return base.CalculateRentalCost(days) * 1.2;
+    }
+}
