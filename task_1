@@ -1,1 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace ConsoleApp2
+{
+    internal class Banking_system
+    {
+        private int accountNumber;
+        protected double balance;
+
+        public Banking_system(int accNum, double bal)
+        {
+            accountNumber = accNum;
+            balance = bal;
+        }
+
+        public void Deposit(double amount)
+        {
+            balance += amount;
+        }
+
+        public virtual void Withdraw(double amount)
+        {
+            if (amount > balance)
+                Console.WriteLine("Insufficient balance");
+            else
+                balance -= amount;
+        }
+
+        public void Display()
+        {
+            Console.WriteLine($"Balance: {balance}");
+        }
+    }
+
+    class SavingsAccount : Banking_system
+    {
+        public SavingsAccount(int acc, double bal) : base(acc, bal) { }
+
+        public override void Withdraw(double amount)
+        {
+            if (amount > balance)
+                Console.WriteLine("Cannot withdraw, insufficient balance");
+            else
+                balance -= amount;
+        }
+    }
+
+    class CurrentAccount : Banking_system
+    {
+        public CurrentAccount(int acc, double bal) : base(acc, bal) { }
+
+        public override void Withdraw(double amount)
+        {
+            if (amount > balance + 1000)
+                Console.WriteLine("Overdraft limit exceeded");
+            else
+                balance  = amount;
+        }
+
+    }
+}
