@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+
+class Product
+{
+    private string name;
+    private double price;
+    private int quantity;
+
+    public Product(string name, double price, int quantity)
+    {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public double GetTotal()
+    {
+        return price * quantity;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+}
+
+class DigitalProduct : Product
+{
+    public DigitalProduct(string n, double p, int q) : base(n, p, q) { }
+}
+
+class PhysicalProduct : Product
+{
+    public PhysicalProduct(string n, double p, int q) : base(n, p, q) { }
+}
+
+class ShoppingCart
+{
+    private List<Product> products = new List<Product>();
+
+    public void AddProduct(Product p)
+    {
+        products.Add(p);
+    }
+
+    public void RemoveProduct(Product p)
+    {
+        products.Remove(p);
+    }
+
+    public void CalculateTotal()
+    {
+        double total = 0;
+        foreach (var p in products)
+            total += p.GetTotal();
+
+        Console.WriteLine($"Total: {total}");
+    }
+}
+👨‍💼 Assignment 3: Employee System
+💻 الكود
+using System;
+using System.Collections.Generic;
+
+abstract class Employee
+{
+    public string Name { get; set; }
+    public double Salary { get; set; }
+
+    public Employee(string name, double salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public abstract double CalculateBonus();
+
+    public void DisplayEmployeeInfo()
+    {
+        Console.WriteLine($"{Name} - Salary: {Salary}");
+    }
+}
+
+class Manager : Employee
+{
+    public Manager(string n, double s) : base(n, s) { }
+
+    public override double CalculateBonus()
+    {
+        return Salary * 0.2;
+    }
+}
+
+class Developer : Employee
+{
+    public Developer(string n, double s) : base(n, s) { }
+
+    public override double CalculateBonus()
+    {
+        return Salary * 0.1;
+    }
+}
